@@ -1,0 +1,22 @@
+.title__center {
+    text-align: center;
+}
+
+.btn__submit {
+    float: right;
+    margin-top: 20px;
+}
+
+.input__form {
+    /* max-width: 20%; */
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    max-width: 170px;
+    min-width: 150px;
+}
+
+.employees__container {
+    padding-top: 75px;
+    padding-bottom: 75px;
+}

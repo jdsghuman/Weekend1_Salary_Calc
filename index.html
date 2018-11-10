@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Salary Calculator</title>
+  <link rel="stylesheet" href="vendors/bootstrap.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="/vendors/jquery-3.3.1.min.js"></script>
+  <script src="scripts/client.js"></script>
+</head>
+
+<body class="container">
+  <h1 class="jumbotron title__center">Salary Calculator</h1>
+  <h3>Add Employee</h3>
+  <div class="input-group">
+    <input class="form-control input__form" type="text" placeholder="First Name" id="firstNameIn">
+    <input class="form-control input__form" type="text" placeholder="Last Name" id="lastNameIn">
+    <input class="form-control input__form" type="text" placeholder="ID" id="userIdIn">
+    <input class="form-control input__form" type="text" placeholder="Title" id="titleIn">
+    <input class="form-control input__form" type="text" placeholder="Annual Salary" id="annualSalaryIn">
+  </div>
+  <div class="button-wrapper__submit">
+    <button class="btn btn-primary btn__submit" id="addEmployee">Submit</button>
+  </div>
+  <div class="employees__container">
+    <h3>Employees</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+</html>
