@@ -1,11 +1,13 @@
 $(document).ready(readyNow);
 
 function readyNow(){
-    console.log('in readyNow');
-
     $('#addEmployee').on('click', addEmployee);
     deleteEmployee();
 }
+
+// Employee array
+let employees = [];
+let monthlyCosts = 0;
 
 // Create Employee class
 class Employee {
@@ -18,24 +20,23 @@ class Employee {
     }
 }
 
-// Employee array
-let employees = [];
-let monthlyCosts = 0;
-
 function appendTable() {
     let tBody = $('#table__body');
     tBody.empty();
     employees.forEach(emp => {
-        console.log(`Employee Information', ${emp.firstName} ${emp.lastName} ${emp.userId} ${emp.title} ${emp.annualSalary}`)
         tBody.append(`<tr class="table__employee"><td>${emp.firstName}</td><td>${emp.lastName}</td><td class="table__employee--userId">${emp.userId}</td><td>${emp.title}</td><td>${emp.annualSalary.toFixed(2)}</td><td><button id="deleteEmployee" class="btn btn-danger btn-sm">Delete</button></td></tr>`);
-    })
+    });
 }
 
 function addEmployee(){
-    console.log('In add employee');
+    // Get unique ID variable
+    let userIdSaved = checkIfUserIdExists();
+
     // Check for input validation
     if($('#firstNameIn').val() === '' || $('#lastNameIn').val() === '' || $('#userIdIn').val() === '' || $('#titleIn').val() === '' || $('#annualSalaryIn').val() === '') {
         alert('Please fill out required fields!');
+    } else if(userIdSaved) {
+        alert('User ID already taken. Please enter a unique User ID!');
     } else {
         let newEmployee = new Employee(
             $('#firstNameIn').val(),
@@ -64,6 +65,14 @@ function addEmployee(){
     }
 }
 
+function calculateMonthlyCosts(){
+    monthlyCosts = 0;
+    // Get Annual Salary total from Employees array
+    employees.map(emp => {
+        monthlyCosts += emp.annualSalary;
+    });
+}
+
 function clearInputValues(){
     $('#firstNameIn').val('');
     $('#lastNameIn').val('');
@@ -72,12 +81,11 @@ function clearInputValues(){
     $('#annualSalaryIn').val('');
 }
 
-function calculateMonthlyCosts(){
-    monthlyCosts = 0;
-    employees.map(emp => {
-        monthlyCosts += emp.annualSalary;
-    })
-    console.log('Montly costs: ', monthlyCosts);
+function checkIfUserIdExists(){
+    let userIdEntered = $('#userIdIn').val();
+    // Check if userId exists
+    let foundId = employees.find(emp => emp.userId === userIdEntered);
+    return foundId;
 }
 
 function deleteEmployee(){
@@ -85,23 +93,23 @@ function deleteEmployee(){
     $('.table').on('click', '#deleteEmployee', function() { 
         // Get UserID of employee
         let empUserId = $(this).parent().parent() 
-                       .find(".table__employee--userId")     
-                       .text();
-        console.log('Found userId: ', empUserId);
+            .find(".table__employee--userId").text();
+
+        // Delete employee from Employee array
         deleteEmployeeFromArray(empUserId);
-        console.log('Employee to delete: ', empUserId);
+
         // Remove Employee from table
         $(this).closest("tr").remove();
     });
 }
 
 function deleteEmployeeFromArray(userIdClicked){
-    console.log('inDeleteEmployeeFromArray');
-    console.log('Employees array before delete: ', employees);
+    // Filter Employees array
     let updatedEmployeesArr = employees.filter(emp => emp.userId != userIdClicked);
+    // Update Employees array
     employees = updatedEmployeesArr;
+    // Update table
     appendTable();
-    console.log('Employees array after delete: ', employees);
 }
 
 function displayMonthlyCosts(){
