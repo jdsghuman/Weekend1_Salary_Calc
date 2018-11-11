@@ -18,5 +18,15 @@
 
 .employees__container {
     padding-top: 75px;
-    padding-bottom: 75px;
+}
+
+#month__display {
+    float: right;
+    margin-bottom: 40px;
+}
+
+.monthly-cost__red {
+    background-color: rgba(243, 8, 8, 0.897);
+    padding: 5px;
+    border-radius: 4px;
 }

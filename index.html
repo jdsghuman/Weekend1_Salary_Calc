@@ -18,47 +18,36 @@
   <div class="input-group">
     <input class="form-control input__form" type="text" placeholder="First Name" id="firstNameIn">
     <input class="form-control input__form" type="text" placeholder="Last Name" id="lastNameIn">
-    <input class="form-control input__form" type="text" placeholder="ID" id="userIdIn">
-    <input class="form-control input__form" type="text" placeholder="Title" id="titleIn">
-    <input class="form-control input__form" type="text" placeholder="Annual Salary" id="annualSalaryIn">
+    <input class="form-control input__form" type="number" placeholder="ID Number" id="userIdIn">
+    <input class="form-control input__form" type="text" placeholder="Job Title" id="titleIn">
+    <input class="form-control input__form" type="number" placeholder="Annual Salary" id="annualSalaryIn">
   </div>
   <div class="button-wrapper__submit">
     <button class="btn btn-primary btn__submit" id="addEmployee">Submit</button>
   </div>
   <div class="employees__container">
     <h3>Employees</h3>
+    <div class="container__table">
+
+    </div>
     <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Annual Salary</th>
+          </tr>
+        </thead>
+        <tbody id="table__body">
+
+        </tbody>
     </table>
   </div>
-
+  <div>
+    <h4 id="month__display">Total Monthly: $ <span id="monthlyTotal">0</span></h4>
+  </div>
 </body>
 
 </html>

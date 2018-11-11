@@ -19,6 +19,16 @@ class Employee {
 
 // Employee array
 let employees = [];
+let monthlyCosts = 0;
+
+function appendTable() {
+    let tBody = $('#table__body');
+    tBody.empty();
+    employees.forEach(emp => {
+        console.log(`Employee Information', ${emp.firstName} ${emp.lastName} ${emp.userId} ${emp.title} ${emp.annualSalary}`)
+        tBody.append(`<tr><td>${emp.firstName}</td><td>${emp.lastName}</td><td>${emp.userId}</td><td>${emp.title}</td><td>${emp.annualSalary}</td><td><button class="btn btn-danger btn-sm">Delete</button></td></tr>`);
+    })
+}
 
 function addEmployee(){
     console.log('In add employee');
@@ -31,14 +41,25 @@ function addEmployee(){
             $('#lastNameIn').val(),
             $('#userIdIn').val(),
             $('#titleIn').val(),
-            $('#annualSalaryIn').val()
+            Number($('#annualSalaryIn').val())
         )
 
         // Clear Inputs
         clearInputValues();
 
         console.log('Add employee: ', newEmployee);
+
+        // Add Employee to Employees array
         employees.push(newEmployee);
+
+        // Calculate monthly costs
+        calculateMonthlyCosts();
+
+        // Display monthly costs
+        displayMonthlyCosts();
+
+        // Add employee to Display
+        appendTable();
     }
 }
 
@@ -48,5 +69,22 @@ function clearInputValues(){
     $('#userIdIn').val('');
     $('#titleIn').val('');
     $('#annualSalaryIn').val('');
+}
+
+function calculateMonthlyCosts(){
+    monthlyCosts = 0;
+    employees.map(emp => {
+        monthlyCosts += emp.annualSalary;
+    })
+    console.log('Montly costs: ', monthlyCosts);
+}
+
+function displayMonthlyCosts(){
+    $('#monthlyTotal').text(monthlyCosts.toFixed(2));
+    if(monthlyCosts >= 20000) {
+        $('#month__display').addClass('monthly-cost__red');
+    } else if(monthlyCosts < 20000) {
+        $('#month__display').removeClass('monthly-cost__red');
+    } 
 }
 
