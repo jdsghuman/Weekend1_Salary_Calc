@@ -1,8 +1,9 @@
 $(document).ready(readyNow);
 
 function readyNow(){
-    $('#addEmployee').on('click', addEmployee);
+    $('#btn__employee--add').on('click', addEmployee);
     deleteEmployee();
+    checkIfEmployeesAdded();
 }
 
 // Employee array
@@ -57,9 +58,9 @@ function addEmployee(){
         // Calculate monthly costs
         calculateMonthlyCosts();
 
-        // Display monthly costs
-        displayMonthlyCosts();
-
+        // Check if employees exist
+        checkIfEmployeesAdded();
+        
         // Add employee to Display
         appendTable();
     }
@@ -71,6 +72,18 @@ function calculateMonthlyCosts(){
     employees.map(emp => {
         monthlyCosts += emp.annualSalary;
     });
+
+    // Show red background if total > 20k
+    displayMonthlyCostsExceeds();
+}
+
+function checkIfEmployeesAdded(){
+    // Add placeholder table text if no employees added
+    if(employees.length > 0) {
+        $('#table__employees--none').hide();
+    } else {
+        $('#table__employees--none').show();
+    }
 }
 
 function clearInputValues(){
@@ -100,6 +113,8 @@ function deleteEmployee(){
 
         // Remove Employee from table
         $(this).closest("tr").remove();
+
+        calculateMonthlyCosts();        
     });
 }
 
@@ -108,12 +123,16 @@ function deleteEmployeeFromArray(userIdClicked){
     let updatedEmployeesArr = employees.filter(emp => emp.userId != userIdClicked);
     // Update Employees array
     employees = updatedEmployeesArr;
+
     // Update table
     appendTable();
+
+    // Check if employees exist
+    checkIfEmployeesAdded();
 }
 
-function displayMonthlyCosts(){
-    $('#monthlyTotal').text(monthlyCosts.toFixed(2));
+function displayMonthlyCostsExceeds(){
+    $('#month__Total').text(monthlyCosts.toFixed(2));
     if(monthlyCosts >= 20000) {
         $('#month__display').addClass('monthly-cost__red');
     } else if(monthlyCosts < 20000) {
