@@ -1,6 +1,6 @@
 $(document).ready(readyNow);
 
-function readyNow(){
+function readyNow() {
     $('#btn__employee--add').on('click', addEmployee);
     deleteEmployee();
     checkIfEmployeesAdded();
@@ -12,7 +12,7 @@ let monthlyCosts = 0;
 
 // Create Employee class
 class Employee {
-    constructor(firstName, lastName, userId, title, annualSalary){
+    constructor(firstName, lastName, userId, title, annualSalary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userId = userId;
@@ -29,14 +29,14 @@ function appendTable() {
     });
 }
 
-function addEmployee(){
+function addEmployee() {
     // Get unique ID variable
     let userIdSaved = checkIfUserIdExists();
 
     // Check for input validation
-    if($('#firstNameIn').val() === '' || $('#lastNameIn').val() === '' || $('#userIdIn').val() === '' || $('#titleIn').val() === '' || $('#annualSalaryIn').val() === '') {
+    if ($('#firstNameIn').val() === '' || $('#lastNameIn').val() === '' || $('#userIdIn').val() === '' || $('#titleIn').val() === '' || $('#annualSalaryIn').val() === '') {
         alert('Please fill out required fields!');
-    } else if(userIdSaved) {
+    } else if (userIdSaved) {
         alert('User ID already taken. Please enter a unique User ID!');
     } else {
         let newEmployee = new Employee(
@@ -50,8 +50,6 @@ function addEmployee(){
         // Clear Inputs
         clearInputValues();
 
-        console.log('Add employee: ', newEmployee);
-
         // Add Employee to Employees array
         employees.push(newEmployee);
 
@@ -60,13 +58,13 @@ function addEmployee(){
 
         // Check if employees exist
         checkIfEmployeesAdded();
-        
+
         // Add employee to Display
         appendTable();
     }
 }
 
-function calculateMonthlyTotal(){
+function calculateMonthlyTotal() {
     monthlyCosts = 0;
     // Get Annual Salary total from Employees array
     employees.map(emp => {
@@ -80,16 +78,16 @@ function calculateMonthlyTotal(){
     displayMonthlyCostsExceeds();
 }
 
-function checkIfEmployeesAdded(){
+function checkIfEmployeesAdded() {
     // Add placeholder table text if no employees added
-    if(employees.length > 0) {
+    if (employees.length > 0) {
         $('#table__employees--none').hide();
     } else {
         $('#table__employees--none').show();
     }
 }
 
-function clearInputValues(){
+function clearInputValues() {
     $('#firstNameIn').val('');
     $('#lastNameIn').val('');
     $('#userIdIn').val('');
@@ -97,18 +95,18 @@ function clearInputValues(){
     $('#annualSalaryIn').val('');
 }
 
-function checkIfUserIdExists(){
+function checkIfUserIdExists() {
     let userIdEntered = $('#userIdIn').val();
     // Check if userId exists
     let foundId = employees.find(emp => emp.userId === userIdEntered);
     return foundId;
 }
 
-function deleteEmployee(){
+function deleteEmployee() {
     // Lister on Delete button
-    $('.table').on('click', '#deleteEmployee', function() { 
+    $('.table').on('click', '#deleteEmployee', function () {
         // Get UserID of employee
-        let empUserId = $(this).parent().parent() 
+        let empUserId = $(this).parent().parent()
             .find(".table__employee--userId").text();
 
         // Delete employee from Employee array
@@ -117,11 +115,11 @@ function deleteEmployee(){
         // Remove Employee from table
         $(this).closest("tr").remove();
 
-        calculateMonthlyTotal();        
+        calculateMonthlyTotal();
     });
 }
 
-function deleteEmployeeFromArray(userIdClicked){
+function deleteEmployeeFromArray(userIdClicked) {
     // Filter Employees array
     let updatedEmployeesArr = employees.filter(emp => emp.userId != userIdClicked);
     // Update Employees array
@@ -134,27 +132,27 @@ function deleteEmployeeFromArray(userIdClicked){
     checkIfEmployeesAdded();
 }
 
-function displayMonthlyCostsExceeds(){
-    if(monthlyCosts >= 20000) {
+function displayMonthlyCostsExceeds() {
+    if (monthlyCosts >= 20000) {
         $('#month__display').addClass('monthly-cost__red');
-    } else if(monthlyCosts < 20000) {
+    } else if (monthlyCosts < 20000) {
         $('#month__display').removeClass('monthly-cost__red');
-    } 
+    }
 }
 
-function getAnnualSalaryFormatted(salary){
+function getAnnualSalaryFormatted(salary) {
     var i = parseFloat(salary);
-	if(isNaN(i)) { i = 0.00; }
-	var minus = '';
-	if(i < 0) { minus = '-'; }
-	i = Math.abs(i);
-	i = parseInt((i + .005) * 100);
-	i = i / 100;
+    if (isNaN(i)) { i = 0.00; }
+    var minus = '';
+    if (i < 0) { minus = '-'; }
+    i = Math.abs(i);
+    i = parseInt((i + .005) * 100);
+    i = i / 100;
     s = new String(i);
-    console.log('s', s);
+    // Ensure two decimal digit appears
     s = parseFloat(s).toLocaleString('en');
-	if(s.indexOf('.') < 0) { s += '.00'; }
-	if(s.indexOf('.') == (s.length - 2)) { s += '0'; }
+    if (s.indexOf('.') < 0) { s += '.00'; }
+    if (s.indexOf('.') == (s.length - 2)) { s += '0'; }
     s = minus + s;
-	return s;
+    return s;
 }
