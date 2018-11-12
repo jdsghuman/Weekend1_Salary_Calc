@@ -4,11 +4,13 @@ function readyNow() {
     $('#btn__employee--add').on('click', addEmployee);
     deleteEmployee();
     checkIfEmployeesAdded();
+    calculateMonthlyTotal(monthlyTotal);
 }
 
 // Employee array
 let employees = [];
-let monthlyCosts = 0;
+// Monthly Total
+let monthlyTotal = 0;
 
 // Create Employee class
 class Employee {
@@ -65,17 +67,17 @@ function addEmployee() {
 }
 
 function calculateMonthlyTotal() {
-    monthlyCosts = 0;
+    monthlyTotal = 0;
     // Get Annual Salary total from Employees array
     employees.map(emp => {
-        monthlyCosts += Number((emp.annualSalary).toFixed(2));
+        monthlyTotal += Number((emp.annualSalary).toFixed(2));
     });
 
     // Display Monthly Total
-    $('#month__Total').text(getAnnualSalaryFormatted(monthlyCosts));
+    $('#month__Total').text(getAnnualSalaryFormatted(monthlyTotal));
 
     // Show red background if total > 20k
-    displayMonthlyCostsExceeds();
+    displayMonthlyTotalExceeds();
 }
 
 function checkIfEmployeesAdded() {
@@ -132,10 +134,10 @@ function deleteEmployeeFromArray(userIdClicked) {
     checkIfEmployeesAdded();
 }
 
-function displayMonthlyCostsExceeds() {
-    if (monthlyCosts >= 20000) {
+function displayMonthlyTotalExceeds() {
+    if (monthlyTotal >= 20000) {
         $('#month__display').addClass('monthly-cost__red');
-    } else if (monthlyCosts < 20000) {
+    } else if (monthlyTotal < 20000) {
         $('#month__display').removeClass('monthly-cost__red');
     }
 }
