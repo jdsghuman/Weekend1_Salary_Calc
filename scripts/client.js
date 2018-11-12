@@ -70,11 +70,11 @@ function calculateMonthlyTotal(){
     monthlyCosts = 0;
     // Get Annual Salary total from Employees array
     employees.map(emp => {
-        monthlyCosts += emp.annualSalary;
+        monthlyCosts += Number((emp.annualSalary).toFixed(2));
     });
 
     // Display Monthly Total
-    $('#month__Total').text(parseFloat(monthlyCosts.toFixed(2)).toLocaleString('en'));
+    $('#month__Total').text(getAnnualSalaryFormatted(monthlyCosts));
 
     // Show red background if total > 20k
     displayMonthlyCostsExceeds();
@@ -143,8 +143,18 @@ function displayMonthlyCostsExceeds(){
 }
 
 function getAnnualSalaryFormatted(salary){
-    let n = salary.toFixed(2);
-    let formattedSalary = Number(n).toLocaleString('en');
-    console.log('Formatted salary: ', formattedSalary);
-    return formattedSalary;
+    var i = parseFloat(salary);
+	if(isNaN(i)) { i = 0.00; }
+	var minus = '';
+	if(i < 0) { minus = '-'; }
+	i = Math.abs(i);
+	i = parseInt((i + .005) * 100);
+	i = i / 100;
+    s = new String(i);
+    console.log('s', s);
+    s = parseFloat(s).toLocaleString('en');
+	if(s.indexOf('.') < 0) { s += '.00'; }
+	if(s.indexOf('.') == (s.length - 2)) { s += '0'; }
+    s = minus + s;
+	return s;
 }
