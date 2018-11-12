@@ -25,7 +25,7 @@ function appendTable() {
     let tBody = $('#table__body');
     tBody.empty();
     employees.forEach(emp => {
-        tBody.append(`<tr class="table__employee"><td>${emp.firstName}</td><td>${emp.lastName}</td><td class="table__employee--userId">${emp.userId}</td><td>${emp.title}</td><td>${emp.annualSalary.toFixed(2)}</td><td><button id="deleteEmployee" class="btn btn-danger btn-sm">Delete</button></td></tr>`);
+        tBody.append(`<tr class="table__employee"><td>${emp.firstName}</td><td>${emp.lastName}</td><td class="table__employee--userId">${emp.userId}</td><td>${emp.title}</td><td>${getAnnualSalaryFormatted(emp.annualSalary)}</td><td><button id="deleteEmployee" class="btn btn-danger btn-sm">Delete</button></td></tr>`);
     });
 }
 
@@ -56,7 +56,7 @@ function addEmployee(){
         employees.push(newEmployee);
 
         // Calculate monthly costs
-        calculateMonthlyCosts();
+        calculateMonthlyTotal();
 
         // Check if employees exist
         checkIfEmployeesAdded();
@@ -66,12 +66,15 @@ function addEmployee(){
     }
 }
 
-function calculateMonthlyCosts(){
+function calculateMonthlyTotal(){
     monthlyCosts = 0;
     // Get Annual Salary total from Employees array
     employees.map(emp => {
         monthlyCosts += emp.annualSalary;
     });
+
+    // Display Monthly Total
+    $('#month__Total').text(parseFloat(monthlyCosts.toFixed(2)).toLocaleString('en'));
 
     // Show red background if total > 20k
     displayMonthlyCostsExceeds();
@@ -114,7 +117,7 @@ function deleteEmployee(){
         // Remove Employee from table
         $(this).closest("tr").remove();
 
-        calculateMonthlyCosts();        
+        calculateMonthlyTotal();        
     });
 }
 
@@ -132,7 +135,6 @@ function deleteEmployeeFromArray(userIdClicked){
 }
 
 function displayMonthlyCostsExceeds(){
-    $('#month__Total').text(monthlyCosts.toFixed(2));
     if(monthlyCosts >= 20000) {
         $('#month__display').addClass('monthly-cost__red');
     } else if(monthlyCosts < 20000) {
@@ -140,3 +142,9 @@ function displayMonthlyCostsExceeds(){
     } 
 }
 
+function getAnnualSalaryFormatted(salary){
+    let n = salary.toFixed(2);
+    let formattedSalary = Number(n).toLocaleString('en');
+    console.log('Formatted salary: ', formattedSalary);
+    return formattedSalary;
+}
