@@ -136,9 +136,9 @@ function deleteEmployeeFromArray(userIdClicked) {
 
 function displayMonthlyTotalExceeds() {
     if (monthlyTotal >= 20000) {
-        $('#month__display').addClass('monthly-cost__red');
+        $('#month__display').addClass('month__total--red');
     } else if (monthlyTotal < 20000) {
-        $('#month__display').removeClass('monthly-cost__red');
+        $('#month__display').removeClass('month__total--red');
     }
 }
 
