@@ -73,6 +73,7 @@ function calculateMonthlyTotal() {
         monthlyTotal += Number((emp.annualSalary).toFixed(2));
     });
 
+    monthlyTotal = monthlyTotal / 12;
     // Display Monthly Total
     $('#month__Total').text(getAnnualSalaryFormatted(monthlyTotal));
 
